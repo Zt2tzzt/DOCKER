@@ -12,7 +12,7 @@ console.log('我的第一个 docker 项目！哈哈哈')
 
 ### 1.dockerfile 创建
 
-在 docker 中运行这个文件，需要执行以下步骤：
+在 docker 中运行以上这个文件，需要执行以下步骤：
 
 1. 安装操作系统。
 2. 安装 JavaScript 运行时环境，即 NodeJS。
@@ -24,11 +24,10 @@ console.log('我的第一个 docker 项目！哈哈哈')
 demo-project/01-HelloDocker/Dockerfile
 
 ```dockerfile
-# 1.安装操作系统。
-# FROM alpine # alpine 镜像
+# 1.安装操作系统。使用 alpine 镜像
+# FROM alpine
 
-# 2.安装 JavaScript 运行时环境，即 NodeJS。
-# 基于 aopine 的 NodeJs 20 镜像
+# 2.安装 JavaScript 运行时环境，即 NodeJS。或直接使用基于 aopine 的 NodeJs 20 镜像
 FROM node:20-alpine
 
 # 3.复制应用程序，依赖包，配置文件。
@@ -64,7 +63,7 @@ REPOSITORY        TAG       IMAGE ID       CREATED         SIZE
 01-hello-docker   latest    7a5ed5051a7c   4 minutes ago   135MB
 ```
 
-TAG，表示镜像的版本，如果构建时未指定，默认为 latest。
+“TAG”，表示镜像的版本，如果构建时未指定，默认为 `latest`。
 
 执行命令，在构建时，为镜像指定一个版本号。
 
@@ -72,7 +71,7 @@ TAG，表示镜像的版本，如果构建时未指定，默认为 latest。
 docker build -t 01-hello-docker:1.0.0 .
 ```
 
-在 Docker Desktop客户端的 Images 选项卡下，也可以看到构建好的 `01-hello-docker` 镜像。
+在 Docker Desktop 客户端的 Images 选项卡下，也可以看到构建好的 `01-hello-docker` 镜像。
 
 ### 3.运行镜像
 
@@ -82,7 +81,7 @@ docker build -t 01-hello-docker:1.0.0 .
 docker run 01-hello-docker
 ```
 
-如果你想要在另一个环境中，运行这个应用程序，只需要把构建好的惊醒文件复制过去，然后执行以上命令就可以了。
+如果你想要在另一个环境中，运行这个应用程序，只需要把构建好的镜像文件复制过去，然后执行以上命令就可以了。
 
 也可以把这个镜像文件，上传到 DockerHub 或 Harbor 镜像仓库中，然后任何人都可以在任何地方，使用 `docker pull` 命令，来下载镜像文件。
 
@@ -101,3 +100,5 @@ docker pull geekhour/hello-docker
 ```shell
 docker run geekhour/hello-docker
 ```
+
+

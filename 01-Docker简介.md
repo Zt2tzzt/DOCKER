@@ -8,7 +8,7 @@ Docker 将应用程序，和它运行时所需要的各种依赖包、第三方�
 
 现有一个软件，前端使用 Vue 构建，后端使用 SpringBoot 构建。数据库使用 MySQL。
 
-如果软件要正常运行，则需要以下的环境、配置：
+如果该软件要正常运行，则需要以下的环境、配置：
 
 - NodeJS 环境，
 - 各种 npm 依赖包。
@@ -54,7 +54,7 @@ Docker 和容器（container）是两个不同的概念，Docker 只是容器（
 
 Docker 中三个主要概念：镜像（image）、容器（container）、仓库。
 
-**镜像（image）**：一个只读的模板，可用来串改内容其。
+**镜像（image）**：一个只读的模板，可用来创建容器。
 
 **容器（container）**：Docker 的运行实例，提供了一个独立的可移植的环境，可在该环节中运行应用程序。
 
@@ -66,7 +66,7 @@ Docker 中三个主要概念：镜像（image）、容器（container）、仓�
 
 Docker 使用 Client-Server 架构模式。
 
-- Docjer daemon 是 Server 端的后台守护进程，负责管理 Docker 的各种资源，并处理 Client 的请求。
+- Server 端的 Docjer daemon 是后台守护进程，负责管理 Docker 的各种资源，并处理 Client 的请求。
 - Clinet 向 Docker Daemon 发送请求，它们之间通过 Socket 或者 RESTful API 进行通信。Docker Daemon 接收到请求后进行处理，再将结果返回给 Docker Client
 
 在终端中输入的各种 docker 命令，都是通过 Docker Client 发送给 Docker Daemon 的，然后就可以在终端中看到命令的执行结果了。
@@ -79,28 +79,26 @@ Windows 需要在”启用或关闭Windows功能”中，开启 Hyper-V 功能�
 
 ## 五、容器化（containerization）和 Dockerfile
 
-容器化（containerization），指的是将软件打包成容器，然后在容器中运行软件的过程。这个过程，分为 3 个步骤：
+容器化（containerization），指的是将应用程序打包成容器，然后在容器中运行应用程序的过程。这个过程，分为 3 个步骤：
 
-1. 创建一个 Dockerfile。来高祖 Docker 构建应用程序镜像（Image），所需要的步骤和配置。
+1. 创建一个 Dockerfile。来告诉 Docker 构建应用程序镜像（Image）所需要的步骤和配置。
 2. 使用 Dockerfile，来构建镜像（Image）
 3. 使用镜像（Image），创建和运行容器（Container）。
 
-Dockerfile 是一个文本文件，里面包含了一条条指令，用来告诉 Docker，如何来构建镜像。
-
-其中包括了需要构建的应用程序中，执行的所有命令（安装各种依赖包，配置相关环境、运行应用程序..的命令）；
+Dockerfile 是一个文本文件，其中包括了需要构建的应用程序中，执行的所有命令（安装各种依赖包，配置相关环境、运行应用程序..的命令），用来告诉 Docker，如何来构建镜像。
 
 Dockerfile 一般来说，包括下面几部分内容：
 
-- 精简版的操作系统，比如 alpine（轻量的 Linux 发行版）。
-- 应用程序的运行环境，比如 NodeJs，Java、Python
-- 应用程序，比如 SpringBoot 打包好的 jar 包。
+- 精简版的操作系统，比如：alpine（轻量的 Linux 发行版）。
+- 应用程序的运行环境，比如：NodeJs，Java、Python
+- 应用程序，比如：SpringBoot 打包好的 jar 包。
 - 应用程序的第三方依赖库（包）。
 - 应用程序的配置文件、环境变量。
 
-一般来说，会在项目的根目录下，创建一个名为 `Dockerfile` 文件，
+一般来说，会在项目的根目录下，创建一个名为 `Dockerfile` 文件，其中有下方的指令：
 
 ```dockerfile
-FROM node:18-alpine
+FROM node:20-alpine
 WORKDIR /app
 COPY . .
 RUN npm install
