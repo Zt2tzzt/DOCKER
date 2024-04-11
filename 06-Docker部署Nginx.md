@@ -29,6 +29,7 @@ docker run -d \
 
 - 默认查看运行中的容器。
 - 使用 `-a` 参数，要查看所有容器。
+- 使用 `--format` 参数，格式化输出值。
 
 ```shell
 docker ps
@@ -36,6 +37,10 @@ docker ps
 
 ```shell
 docker ps -a
+```
+
+```shell
+docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Ports}}\t{{.Status}}\t{{.Names}}"
 ```
 
 Ⅵ、停止容器，执行命令：
@@ -82,4 +87,3 @@ docker rm mysql
 ```shell
 docker rm mysql -f
 ```
-
