@@ -18,7 +18,7 @@ Docker 的镜像加速有很多，这里以阿里云举例。
 }
 ```
 
-## 二、部署 MySQL
+## 二、MySQL 部署
 
 一条命令部署 MySQL。
 
@@ -33,7 +33,7 @@ docker run -d \
   mysql
 ```
 
-这条命令，做了下图中的操作：
+以上这条命令，做了下图中的操作：
 
 ![一条命令部署MySQL](NodeAssets/Docker一条命令部署MySQL.jpg)
 
@@ -43,4 +43,4 @@ docker run -d \
 - `--name mysql`：给容器起个名字，必须唯一。
 - `-p 3307:3306` ：设置端口映射，将容器中的 3306 端口，映射到了宿主机的 3307 端口。
 - `-e MYSQL_ROOT_PASSWORD=123` ：是设置环境变量（“KEY=VALUE”形式），由镜像决定要设置哪些环境变量。比如见 [MySQL 的官方镜像配置](https://hub.docker.com/_/mysql)。
-- `mysql` ：指定运行的镜像的名字，表示 `mysql:latest`，完整写法是 `mysql:8.3.0`。
+- `mysql` ：指定运行的镜像的名字，默认表示表示最新的镜像版本，即 `mysql:latest`，完整写法是 `mysql:8.3.0`。

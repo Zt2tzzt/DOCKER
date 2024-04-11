@@ -76,5 +76,10 @@ docker exec -it nginx bash
 - 使用 `-f` 选项，表示强制删除（用于删除运行中的容器）：
 
 ```shell
+docker rm mysql
+```
+
+```shell
 docker rm mysql -f
 ```
+
