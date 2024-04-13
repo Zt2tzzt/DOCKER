@@ -17,11 +17,13 @@
 
 Docker 数据卷的相关命令：
 
-- `docker volume create`，创建数据卷。
-- `docker volume rm`，删除指定数据卷。
-- `docker volume prune`，清除数据卷。
-- `docker volume ls`，查看所有数据卷。
-- `docker volume inspect`，查看某个数据卷的详情。
+| **命令**              | **说明**             | **文档地址**                                                                                  |
+| --------------------- | -------------------- | --------------------------------------------------------------------------------------------- |
+| docker volume create  | 创建数据卷           | [docker volume create](https://docs.docker.com/engine/reference/commandline/volume_create/)   |
+| docker volume ls      | 查看所有数据卷       | [docker volume ls](https://docs.docker.com/engine/reference/commandline/volume_ls/)           |
+| docker volume rm      | 删除指定数据卷       | [docker volume rm](https://docs.docker.com/engine/reference/commandline/volume_prune/)        |
+| docker volume inspect | 查看某个数据卷的详情 | [docker volume inspect](https://docs.docker.com/engine/reference/commandline/volume_inspect/) |
+| docker volume prune   | 清除数据卷           | [docker volume prune](https://docs.docker.com/engine/reference/commandline/volume_prune/)     |
 
 ## 二、nginx 容器挂载数据卷
 
@@ -46,7 +48,7 @@ docker rm nginx
 ```shell
 docker run -d \
     --name nginx \
-    -p 81:80 \
+    -p 80:80 \
     -v html:/usr/share/nginx/html \
     nginx
 ```
@@ -102,17 +104,17 @@ docker inspect mysql
 ```json
 {
   "Mounts": [
-      {
-          "Type": "volume",
-          "Name": "c18b52b2e5a44f98189fe4b2be3fe1c7e47e6ad05a1a00680efbe5376934f33f",
-          "Source": "/var/lib/docker/volumes/c18b52b2e5a44f98189fe4b2be3fe1c7e47e6ad05a1a00680efbe5376934f33f/_data",
-          "Destination": "/var/lib/mysql",
-          "Driver": "local",
-          "Mode": "",
-          "RW": true,
-          "Propagation": ""
-      }
-  ],
+    {
+      "Type": "volume",
+      "Name": "c18b52b2e5a44f98189fe4b2be3fe1c7e47e6ad05a1a00680efbe5376934f33f",
+      "Source": "/var/lib/docker/volumes/c18b52b2e5a44f98189fe4b2be3fe1c7e47e6ad05a1a00680efbe5376934f33f/_data",
+      "Destination": "/var/lib/mysql",
+      "Driver": "local",
+      "Mode": "",
+      "RW": true,
+      "Propagation": ""
+    }
+  ]
 }
 ```
 

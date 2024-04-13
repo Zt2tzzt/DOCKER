@@ -19,7 +19,7 @@ docker images
 ```shell
 docker run -d \
   --name nginx \
-  -p 81:80 \
+  -p 80:80 \
   nginx
 ```
 
