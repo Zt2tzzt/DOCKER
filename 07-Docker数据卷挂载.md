@@ -173,4 +173,37 @@ docker run -d \
   mysql
 ```
 
+## 四、数据卷补充
+
 如果在启动 mysql 容器实例时，数据目录中已包含数据库（特别是 mysql 子目录）（已挂载的卷），则应在运行命令行中省略 `$MYSQL_ROOT_PASSWORD`；无论如何，该变量都将被忽略，并且不会以任何方式更改已存在的数据库。
+
+要让宿主机中的映射目录，变为只读，在容器映射路径后面加上 `:ro`，表示 readonly：
+
+```shell
+docker run -d \
+  --name mysql \
+  -p 3306:3306 \
+  -e TZ=Asia/Shanghai \
+  -e MYSQL_ROOT_PASSWORD=123 \
+  -v /home/zetian/dockerVolume/mysql/data:/var/lib/mysql:ro \
+  mysql
+```
+
+声明数据卷里的某些文件夹不同步到容器，比如 node 应用程序的容器中，可能会声明 node_modules 文件夹不能同步。
+
+```shell
+docker run -d \
+  --name mysql \
+  -p 9000:9000 \
+  -v /app/node_modules \
+  mysql
+```
+
+强制删除容器，并删除相关的数据卷：
+
+```doc
+docker rm -fv 容器名
+```
+
+
+

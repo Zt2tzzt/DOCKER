@@ -6,6 +6,8 @@
 
 构建镜像的过程，其实就是把上述文件打包的过程。
 
+对比：部署 Node 项目，与构建 Node 镜像在步骤上的区别。
+
 | 步骤 | 部署 Node 应用            | 构建 Node 镜像            |
 | ---- | ------------------------- | ------------------------- |
 | 1    | 准备一个 Linux 服务器     | 准备一个 Linux 运行环境   |
@@ -26,7 +28,7 @@
 
 ## 三、Dockerfile
 
-Dockerfile  是一个文本文件，其中包含一个个的指令（Instruction），用指令来说明要执行什么操作来构建镜像（告诉 Docker 镜像的结构。）。
+Dockerfile  是一个文本文件，其中包含一个个的指令（Instruction），用指令来说明要执行什么操作来构建镜像（告诉 Docker 镜像的结构）。
 
 将来 Docker 可以根据 Dockerfile 帮我们构建镜像。常见指令如下：
 
@@ -41,7 +43,9 @@ Dockerfile  是一个文本文件，其中包含一个个的指令（Instruction
 
 更新详细语法说明，请参考[官网文档](https://docs.docker.com/engine/reference/builder)。
 
-我们可以基于 Ubuntu 基础镜像，利用 Dockerfile 描述镜像结构，也可以直接基于 JDK 为基础镜像，省略前面的步骤：
+## 四、Dockerfile 构建 Java 应用程序镜像
+
+我们可以基于 Ubuntu 基础镜像，利用 Dockerfile 描述镜像结构：
 
 ```dockerfile
 # 指定基础镜像
@@ -60,7 +64,7 @@ ENV PATH=$PATH:$JAVA_HOME/bin
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 ```
 
-可以简化为 ↓
+也可以直接基于 JDK 为基础镜像，省略前面的步骤：
 
 ```dockerfile
 # 基础镜像
@@ -77,5 +81,49 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 docker build -t myImage:1.0 .
 ```
 
-- `-t` 选项，是给镜像起名，格式依然是 repository:tag 的格式，不指定 tag 时，默认为 `latest``。
+- `-t` 选项，是给镜像起名，格式依然是 repository:tag 的格式，不指定 tag 时，默认为 `latest`。
 - `.` ：表示指定 Dockerfile 所在目录为当前目录。
+
+## 五、Dockerfile 构建 Node 应用程序镜像
+
+创建 .dockerignore 文件，将不想复制到镜像中的文件，添加进去
+
+```ignore
+node_modules
+Dockerfile
+.dockerignore
+.gitignore
+.prettierrc.json
+README.md
+```
+
+这里使用两次 COPY 指令，是利用 docker 的缓存机制，使得构建镜像的速度增加。
+
+因为在实际开发中，package.json 文件的改动频次较少。
+
+```dockerfile
+FROM node:18-alpine3.15
+WORKDIR /app
+COPY package.json
+RUN pnpm install
+COPY . .
+EXPOSE 9000
+CMD ["pnpm", "start"]
+```
+
+CMD 指令后的内容，要用数组表示。
+
+构建镜像，执行命令：
+
+```shell
+docker build .
+```
+
+为构建的镜像，起一个名字，执行命令：
+
+```shell
+docker tag e6f zt2tzzt/mynodejsapp:1.0.0
+```
+
+- `e6f` 是镜像 id 的前三位，
+- `zt2tzzt/mynodejsapp:1.0.0`，表示镜像名字，格式是”用户名/镜像名:版本号“

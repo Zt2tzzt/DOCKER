@@ -2,7 +2,7 @@
 
 ## 一、Docker 网络是什么？
 
-默认情况下，所有容器都是以 bridge 方式，连接到 Docker 的一个虚拟网桥上：
+默认情况下，所有容器都是以 bridge 方式，连接到 Docker 的一个虚拟网卡上：
 
 ![docker网络](NodeAssets/docker网络.jpg)
 
@@ -37,21 +37,21 @@ docker inspect mysql
 
 发现 mysql 容器，处在 `172.17.0.1` 网卡中。
 
-容器之间可以通过 ip 地址互相访问，但这种连接方式不好，因为停止容器再启动后，容器的 ip 地址是动态变化的。
+我们知道，容器之间可以通过 ip 地址互相访问，但这种连接方式不好，因为停止容器再启动后，容器的 ip 地址是动态变化的。
 
-加入 Docker 的自定义网络后，容器就可以通过容器名，互相访问了。
+解决该问题的方法，就是将容器加入 Docker 的自定义网络，这样，容器就可以通过容器名互相访问了。
 
 Docker 的网络操作命令如下：
 
 | **命令**                  | **说明**                 | **文档地址**                                                 |
 | ------------------------- | ------------------------ | ------------------------------------------------------------ |
-| docker network create     | 创建一个网络             | [docker   network create](https://docs.docker.com/engine/reference/commandline/network_create/) |
-| docker network ls         | 查看所有网络             | [docker   network ls](https://docs.docker.com/engine/reference/commandline/network_ls/) |
-| docker network rm         | 删除指定网络             | [docker   network rm](https://docs.docker.com/engine/reference/commandline/network_rm/) |
-| docker network prune      | 清除未使用的网络         | [docker   network prune](https://docs.docker.com/engine/reference/commandline/network_prune/) |
-| docker network connect    | 使指定容器连接加入某网络 | [docker   network connect](https://docs.docker.com/engine/reference/commandline/network_connect/) |
-| docker network disconnect | 使指定容器连接离开某网络 | [docker   network disconnect](https://docs.docker.com/engine/reference/commandline/network_disconnect/) |
-| docker network inspect    | 查看网络详细信息         | [docker   network inspect](https://docs.docker.com/engine/reference/commandline/network_inspect/) |
+| docker network create     | 创建一个网络             | [docker network create](https://docs.docker.com/engine/reference/commandline/network_create/) |
+| docker network ls         | 查看所有网络             | [docker network ls](https://docs.docker.com/engine/reference/commandline/network_ls/) |
+| docker network rm         | 删除指定网络             | [docker network rm](https://docs.docker.com/engine/reference/commandline/network_rm/) |
+| docker network prune      | 清除未使用的网络         | [docker network prune](https://docs.docker.com/engine/reference/commandline/network_prune/) |
+| docker network connect    | 使指定容器连接加入某网络 | [docker network connect](https://docs.docker.com/engine/reference/commandline/network_connect/) |
+| docker network disconnect | 使指定容器连接离开某网络 | [docker network disconnect](https://docs.docker.com/engine/reference/commandline/network_disconnect/) |
+| docker network inspect    | 查看网络详细信息         | [docker network inspect](https://docs.docker.com/engine/reference/commandline/network_inspect/) |
 
 ## 二、Docker 网络创建
 
