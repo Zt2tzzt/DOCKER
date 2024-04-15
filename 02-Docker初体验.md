@@ -10,9 +10,9 @@ demo-project/01-HelloDocker/index.js
 console.log('我的第一个 docker 项目！哈哈哈')
 ```
 
-### 1.dockerfile 创建
+### 1.Dockerfile 创建
 
-在 docker 中运行以上这个文件，需要执行以下步骤：
+在 docker 中运行以上这个 js 文件，需要执行以下步骤：
 
 1. 安装操作系统。
 2. 安装 JavaScript 运行时环境，即 NodeJS。
@@ -40,7 +40,7 @@ COPY index.js /index.js
 CMD node /index.js
 ```
 
-### 2.dockerfile 构建镜像
+### 2.Dockerfile 构建镜像
 
 Ⅰ、在项目根目录，执行命令：
 

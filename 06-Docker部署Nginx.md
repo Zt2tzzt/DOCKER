@@ -2,7 +2,7 @@
 
 Ⅰ、查看 DockerHub 中 [Nginx 官方文档](https://hub.docker.com/_/nginx)。
 
-Ⅱ、拉取 Nginx 镜像，执行命令：
+Ⅱ、拉取 Nginx 镜像到本地，执行命令：
 
 ```shell
 docker pull nginx

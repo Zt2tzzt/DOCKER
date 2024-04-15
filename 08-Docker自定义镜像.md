@@ -32,14 +32,15 @@ Dockerfile  是一个文本文件，其中包含一个个的指令（Instruction
 
 将来 Docker 可以根据 Dockerfile 帮我们构建镜像。常见指令如下：
 
-| 指令       | 说明                                             | 示例                                                         |
-| ---------- | ------------------------------------------------ | ------------------------------------------------------------ |
-| FROM       | 指定基础镜像                                     | FROM centos:6                                                |
-| ENV        | 设置环境变量，可在后面指令中使用                 | ENV Key=Value                                                |
-| COPY       | 拷贝本地文件到镜像的指定目录                     | COPY ./jre11.tar.gz /tmp                                     |
-| RUN        | 执行 Linux 的 shell 命令，一般是安装过程的命令   | RUN tar -zxvf /tmp/jre11.tar.gz && EXPORTS path=/tmp/jre11:$path |
-| EXPOSE     | 指定容器运行时监听的端口（是给镜像使用者看的）。 | EXPOSE 8080                                                  |
-| ENTRYPOINT | 镜像中应用的启动命令，容器运行时调用             | ENTRYPOINT java -jar xx.jar                                  |
+| 指令       | 说明                                           | 示例                                                         |
+| ---------- | ---------------------------------------------- | ------------------------------------------------------------ |
+| FROM       | 指定基础镜像                                   | FROM centos:6                                                |
+| ENV        | 设置环境变量，可在后面指令中使用               | ENV Key=Value                                                |
+| COPY       | 拷贝本地文件到镜像的指定目录                   | COPY ./jre11.tar.gz /tmp                                     |
+| RUN        | 执行 Linux 的 shell 命令，一般是安装过程的命令 | RUN tar -zxvf /tmp/jre11.tar.gz && EXPORTS path=/tmp/jre11:$path |
+| EXPOSE     | 指定容器运行时监听的端口（是给镜像使用者看的） | EXPOSE 8080                                                  |
+| ENTRYPOINT | 镜像中应用的启动命令，容器运行时调用           | ENTRYPOINT java -jar xx.jar                                  |
+| CMD        | 指定容器启动时的默认执行命令                   | CMD ["pnpm", "start"]                                        |
 
 更新详细语法说明，请参考[官网文档](https://docs.docker.com/engine/reference/builder)。
 
@@ -81,12 +82,12 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 docker build -t myImage:1.0 .
 ```
 
-- `-t` 选项，是给镜像起名，格式依然是 repository:tag 的格式，不指定 tag 时，默认为 `latest`。
+- `-t` 选项，是给镜像起名，格式依然是 "repository:tag" 的格式，不指定 tag 时，默认为 `latest`。
 - `.` ：表示指定 Dockerfile 所在目录为当前目录。
 
 ## 五、Dockerfile 构建 Node 应用程序镜像
 
-创建 .dockerignore 文件，将不想复制到镜像中的文件，添加进去
+创建 `.dockerignore` 文件，将不想复制到镜像中的文件，添加进去
 
 ```ignore
 node_modules
@@ -97,9 +98,7 @@ Dockerfile
 README.md
 ```
 
-这里使用两次 COPY 指令，是利用 docker 的缓存机制，使得构建镜像的速度增加。
-
-因为在实际开发中，package.json 文件的改动频次较少。
+编写 Dockerfile 文件
 
 ```dockerfile
 FROM node:18-alpine3.15
@@ -110,6 +109,8 @@ COPY . .
 EXPOSE 9000
 CMD ["pnpm", "start"]
 ```
+
+这里使用两次 COPY 指令，是利用 docker 的缓存机制，使得构建镜像的速度增加。因为在实际开发中，package.json 文件的改动频次较少。
 
 CMD 指令后的内容，要用数组表示。
 
@@ -126,4 +127,4 @@ docker tag e6f zt2tzzt/mynodejsapp:1.0.0
 ```
 
 - `e6f` 是镜像 id 的前三位，
-- `zt2tzzt/mynodejsapp:1.0.0`，表示镜像名字，格式是”用户名/镜像名:版本号“
+- `zt2tzzt/mynodejsapp:1.0.0`，表示镜像名字，格式是”用户名/镜像名:版本号“，这种格式

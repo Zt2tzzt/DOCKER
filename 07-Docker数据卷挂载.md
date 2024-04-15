@@ -10,26 +10,26 @@
 
 也就是说，默认情况下，数据卷存放在 `/var/lib/docker/volumes/` 目录下。
 
-基于 WSL2 的 Windows Docker Desktop 数据卷，默认存放的位置如下：
-
-- `\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes`
-- 或在 `\\wsl$\docker-desktop-data\` 目录下查找。
+基于 WSL2 的 Windows Docker Desktop 数据卷，默认存放的位置需要在 `\\wsl$\docker-desktop-data\` 目录下查找。
 
 Docker 数据卷的相关命令：
 
-| **命令**              | **说明**             | **文档地址**                                                                                  |
-| --------------------- | -------------------- | --------------------------------------------------------------------------------------------- |
-| docker volume create  | 创建数据卷           | [docker volume create](https://docs.docker.com/engine/reference/commandline/volume_create/)   |
-| docker volume ls      | 查看所有数据卷       | [docker volume ls](https://docs.docker.com/engine/reference/commandline/volume_ls/)           |
-| docker volume rm      | 删除指定数据卷       | [docker volume rm](https://docs.docker.com/engine/reference/commandline/volume_prune/)        |
-| docker volume inspect | 查看某个数据卷的详情 | [docker volume inspect](https://docs.docker.com/engine/reference/commandline/volume_inspect/) |
-| docker volume prune   | 清除数据卷           | [docker volume prune](https://docs.docker.com/engine/reference/commandline/volume_prune/)     |
+| **文档地址**                                                 | **说明**             |
+| ------------------------------------------------------------ | -------------------- |
+| [docker volume create](https://docs.docker.com/engine/reference/commandline/volume_create/) | 创建数据卷           |
+| [docker volume prune](https://docs.docker.com/engine/reference/commandline/volume_prune/) | 清除数据卷           |
+| [docker volume inspect](https://docs.docker.com/engine/reference/commandline/volume_inspect/) | 查看某个数据卷的详情 |
+| [docker volume ls](https://docs.docker.com/engine/reference/commandline/volume_ls/) | 查看所有数据卷       |
+| [docker volume rm](https://docs.docker.com/engine/reference/commandline/volume_prune/) | 删除指定数据卷       |
 
 ## 二、nginx 容器挂载数据卷
 
-需求：一、创建 nginx 容器，其中的 html 目录下的 index.html 文件，查看变化；二、将静态资源，部署到 Nginx 的 html 目录
+需求：① 创建 nginx 容器，其中的 html 目录下的 index.html 文件，查看变化；② 将静态资源，部署到 Nginx 的 html 目录。
 
-因为 Docker 中的镜像，只提供了软件运行的必须环境，所以会发现，容器环境中没有 vim 编辑器。去修改静态资源 index.html，也无法拷贝静态资源到容器的目录中。
+因为 Docker 中的镜像，只提供了软件运行的必须环境，所以会发现，
+
+- 容器环境中，没有 vim 编辑器。去修改静态资源 index.html；
+- 也无法拷贝静态资源到容器的目录中。
 
 Ⅰ、先删除 nginx 容器。执行命令：
 
@@ -39,12 +39,6 @@ docker rm nginx
 
 Ⅱ、在创建 nginx 容器的同时，挂载数据卷。执行命令：
 
-在执行 `docker run` 命令时，使用 `-v 数据卷:容器内目录` 可以完成数据卷挂载。
-
-当创建容器时，如果挂载了数据卷，且数据卷不存在，会自动创建数据卷。
-
-下方命令，在创建并运行容器的同时，创建了一个名为 `html` 的数据卷，映射到容器中的 /usr/share/nginx/html 目录。
-
 ```shell
 docker run -d \
     --name nginx \
@@ -52,6 +46,12 @@ docker run -d \
     -v html:/usr/share/nginx/html \
     nginx
 ```
+
+在执行 `docker run` 命令时，使用 `-v 数据卷:容器内目录` 可以完成数据卷挂载。
+
+上方命令，在创建并运行容器的同时，创建了一个名为 `html` 的数据卷，映射到容器中的 /usr/share/nginx/html 目录。
+
+当创建容器时，如果挂载了数据卷，且数据卷不存在，会自动创建数据卷。
 
 Ⅲ、查看创建的数据卷，执行命令：
 
@@ -90,6 +90,8 @@ zetian@cqc1000015167l3:~$ docker volume inspect html
 ```
 
 Ⅴ、修改数据卷中 index.html 文件。容器中对应的 index.html 文件也会改变。
+
+Ⅵ、将静态资源，部署到数据卷中，覆盖其中的 index.html，查看效果。
 
 ## 三、mysql 容器挂载数据卷
 
@@ -131,7 +133,7 @@ docker inspect mysql
 
 - 数据目录：/var/lib/mysql
 - 配置文件目录：/etc/mysql/conf.d
-- 初始化脚本目录：/docker-entrypoint-initdb.d（初始化脚本，在容器第一次启动时，才会生效，且只生效一次。）
+- 初始化脚本目录：/docker-entrypoint-initdb.d（初始化脚本，在容器第一次启动时，才会生效，且只生效一次）
 
 在执行创建容器命令前，提前在宿主机创建好以下三个目录：分别用于映射上面容器中的三个目录：
 
@@ -175,7 +177,7 @@ docker run -d \
 
 ## 四、数据卷补充
 
-如果在启动 mysql 容器实例时，数据目录中已包含数据库（特别是 mysql 子目录）（已挂载的卷），则应在运行命令行中省略 `$MYSQL_ROOT_PASSWORD`；无论如何，该变量都将被忽略，并且不会以任何方式更改已存在的数据库。
+如果在启动 mysql 容器实例时，已挂载了数据目录的数据卷，则应在运行命令行中省略 `$MYSQL_ROOT_PASSWORD`；无论如何，该变量都将被忽略，并且不会以任何方式更改已存在的数据库。
 
 要让宿主机中的映射目录，变为只读，在容器映射路径后面加上 `:ro`，表示 readonly：
 
@@ -189,7 +191,7 @@ docker run -d \
   mysql
 ```
 
-声明数据卷里的某些文件夹不同步到容器，比如 node 应用程序的容器中，可能会声明 node_modules 文件夹不能同步。
+声明数据卷里的某些文件夹，不同步到容器，比如 node 应用程序的容器中，可能会声明 node_modules 文件夹不同步到容器中。
 
 ```shell
 docker run -d \

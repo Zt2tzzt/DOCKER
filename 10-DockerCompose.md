@@ -12,9 +12,9 @@ Docker Compose 配置文件的结构如下图所示：
 
 ![dockerCompose配置文件结构](NodeAssets/dockerCompose配置文件结构.jpg)
 
-`docker run` 命令的参数、选项内容，与 `docker-compose.yml` 配置文件中描述的内容，几乎一样。
-
 因为 docker compose 本身就是用来创建镜像，并运行、启动容器的。
+
+所以 `docker run` 命令的参数、选项内容，与 `docker-compose.yml` 配置文件中描述的内容，几乎一样。以下是它们的对比：
 
 `docker run` 命令：
 
@@ -31,7 +31,7 @@ docker run -d \
   mysql
 ```
 
-`docker-compose.yml` 配置文件
+`docker-compose.yml` 配置文件：
 
 ```yaml
 version: '3.8'
@@ -55,7 +55,7 @@ services:
 
 ## 二、Docker Compose 配置
 
-使用 docker-compose.yml 配置文件，部署一个 Java 项目的 。
+使用 docker-compose.yml 配置文件，部署一个 Java 项目。
 
 ```yaml
 version: '3.8'
@@ -129,7 +129,10 @@ docker compose 相关的 docker 命令语法：`docker compose [OPTIONS] [COMMAN
 | top     | 查看运行的进程                            |
 | exec    | 在指定的运行容器中执行命令              |
 
-一条命令，构建镜像，并启动运行容器，且在后台运行，根据最新的镜像重建：
+一条命令，构建镜像，并启动运行容器，
+
+- `-d` 选项，表示且在后台运行；
+- `--build` 选项，表示根据最新的镜像重建：
 
 ```shell
 docker compose up -d --build
