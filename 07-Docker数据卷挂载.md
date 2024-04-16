@@ -53,6 +53,16 @@ docker run -d \
 
 当创建容器时，如果挂载了数据卷，且数据卷不存在，会自动创建数据卷。
 
+这里，我将数据卷挂载在自定义的目录下：
+
+```shell
+docker run -d \
+    --name nginx \
+    -p 80:80 \
+    -v /home/zetian/dockerVolume/nginx/html:/usr/share/nginx/html \
+    nginx
+```
+
 Ⅲ、查看创建的数据卷，执行命令：
 
 ```shell
@@ -206,6 +216,3 @@ docker run -d \
 ```doc
 docker rm -fv 容器名
 ```
-
-
-
