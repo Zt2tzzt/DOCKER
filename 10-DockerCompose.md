@@ -6,7 +6,7 @@ Docker Compose 通过一个单独的 `docker-compose.yml` 模板文件（YAML �
 
 可做项目的一键部署，模拟多台服务器集群部署。
 
-![docker-compose](https://raw.githubusercontent.com/docker/compose/main/logo.png)
+![DpckerComposeLogo](NodeAssets/DpckerComposeLogo.png)
 
 Docker Compose 配置文件的结构如下图所示：
 
@@ -14,7 +14,7 @@ Docker Compose 配置文件的结构如下图所示：
 
 因为 docker compose 本身就是用来创建镜像，并运行、启动容器的。
 
-所以 `docker run` 命令的参数、选项内容，与 `docker-compose.yml` 配置文件中描述的内容，几乎一样。以下是它们的对比：
+所以 `docker run` 命令的参数、选项，与 `docker-compose.yml` 配置文件中描述的内容，几乎一样。以下是它们的对比：
 
 `docker run` 命令：
 
