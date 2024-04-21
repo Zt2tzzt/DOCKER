@@ -10,7 +10,7 @@
 
 也就是说，默认情况下，数据卷存放在 `/var/lib/docker/volumes/` 目录下。
 
-基于 WSL2 的 Windows Docker Desktop 数据卷，默认存放的位置需要在 `\\wsl$\docker-desktop-data\` 目录下查找。
+> 基于 WSL2 的 Windows Docker Desktop 数据卷，默认存放的位置需要在 `\\wsl$\docker-desktop-data\` 目录下查找。
 
 Docker 数据卷的相关命令：
 
@@ -28,8 +28,8 @@ Docker 数据卷的相关命令：
 
 因为 Docker 中的镜像，只提供了软件运行的必须环境，所以会发现，
 
-- 容器环境中，没有 vim 编辑器。去修改静态资源 index.html；
-- 也无法拷贝静态资源到容器的目录中。
+- 容器环境中，没有 vim 编辑器。以修改静态资源 index.html；
+- 也无法拷贝静态资源到容器的目录中，因为容器与宿主机是隔绝的。
 
 Ⅰ、先删除 nginx 容器。执行命令：
 
@@ -137,7 +137,7 @@ docker inspect mysql
 
 然而，mysql 容器默认挂载的数据卷，是一个匿名卷（c18b52b2e5a44f98189fe4b2be3fe1c7e47e6ad05a1a00680efbe5376934f33f 名字非常长）。
 
-现在，要求基于宿主机目录（指定目录）实现 MySQL 数据目录、配置文件、初始化脚本的挂载
+现在，要求基于宿主机目录（指定目录）实现 MySQL 数据目录、配置文件、初始化脚本的挂载。
 
 查阅[官方镜像文档](https://hub.docker.com/_/mysql)后可知，它们对应的目录，分别是：
 

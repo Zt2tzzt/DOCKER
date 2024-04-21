@@ -2,7 +2,9 @@
 
 ## 一、Docker compose 是什么？
 
-Docker Compose 通过一个单独的 `docker-compose.yml` 模板文件（YAML 格式）来定义一组相关联的应用容器，帮助我们实现多个相互关联的 Docker 容器的快速部署。
+Docker Compose 通过一个单独的 `docker-compose.yml` 模板文件（YAML 格式）来定义一组相关联的应用容器。
+
+帮助我们实现多个相互关联的 Docker 容器的快速部署。
 
 可做项目的一键部署，模拟多台服务器集群部署。
 

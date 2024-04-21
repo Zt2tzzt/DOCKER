@@ -91,7 +91,7 @@ docker run 01-hello-docker
 
 ## 二、在线 Docker 环境
 
-在[在想 Docker 环境](https://labs.play-with-docker.com/)中，使用 Docker 的各种功能。
+[在线 Docker 环境](https://labs.play-with-docker.com/)中，使用 Docker 的各种功能。
 
 - 比如构建镜像，使用容器等等。
 
@@ -106,4 +106,3 @@ docker pull geekhour/hello-docker
 ```shell
 docker run geekhour/hello-docker
 ```
-

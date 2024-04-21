@@ -82,7 +82,7 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 docker build -t myImage:1.0 .
 ```
 
-- `-t` 选项，是给镜像起名，格式依然是 "repository:tag" 的格式，不指定 tag 时，默认为 `latest`。
+- `-t` 选项，TAG 的意思，表示给镜像起名，格式依然是 "repository:tag" 的格式，不指定 tag 时，默认为 `latest`。
 - `.` ：表示指定 Dockerfile 所在目录为当前目录。
 
 ## 五、Dockerfile 构建 Node 应用程序镜像
