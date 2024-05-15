@@ -53,15 +53,17 @@ docker run -d \
 
 当创建容器时，如果挂载了数据卷，且数据卷不存在，会自动创建数据卷。
 
-这里，我将数据卷挂载在自定义的目录下：
-
-```shell
-docker run -d \
-    --name nginx \
-    -p 80:80 \
-    -v /home/zetian/dockerVolume/nginx/html:/usr/share/nginx/html \
-    nginx
-```
+> 在本地运行 docker 容器时，建议把数据卷设定为自定义的目录下：
+>
+> 这本地，我会将数据卷挂载在自定义的目录下：
+>
+> ```shell
+> docker run -d \
+>     --name nginx \
+>     -p 80:80 \
+>     -v /home/zetian/dockerVolume/nginx/html:/usr/share/nginx/html \
+>     nginx
+> ```
 
 Ⅲ、查看创建的数据卷，执行命令：
 
@@ -173,19 +175,17 @@ docker run -d \
   mysql
 ```
 
-这里，我只把 mysql 的数据目录，挂载到自定义目录下。执行命令：
-
-```shell
-docker run -d \
-  --name mysql \
-  -p 3306:3306 \
-  -e TZ=Asia/Shanghai \
-  -e MYSQL_ROOT_PASSWORD=123 \
-  -v /home/zetian/dockerVolume/mysql/data:/var/lib/mysql \
-  mysql
-```
-
-## 四、数据卷补充
+> 在本地，我通常只把 mysql 的数据目录，挂载到自定义目录下。执行命令：
+>
+> ```shell
+> docker run -d \
+>   --name mysql \
+>   -p 3306:3306 \
+>   -e TZ=Asia/Shanghai \
+>   -e MYSQL_ROOT_PASSWORD=123 \
+>   -v /home/zetian/dockerVolume/mysql/data:/var/lib/mysql \
+>   mysql
+> ```
 
 如果在启动 mysql 容器实例时，已挂载了数据目录的数据卷，则应在运行命令行中省略 `$MYSQL_ROOT_PASSWORD`；无论如何，该变量都将被忽略，并且不会以任何方式更改已存在的数据库。
 
@@ -200,6 +200,8 @@ docker run -d \
   -v /home/zetian/dockerVolume/mysql/data:/var/lib/mysql:ro \
   mysql
 ```
+
+## 四、数据卷补充
 
 声明数据卷里的某些文件夹，不同步到容器，比如 node 应用程序的容器中，可能会声明 node_modules 文件夹不同步到容器中。
 

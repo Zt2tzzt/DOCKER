@@ -27,7 +27,7 @@ Docker 可以将以上配置和环境，全部打包在一个“集装箱”中�
 
 虚拟机，是通过**虚拟化（Hypervisor）**技术实现的，
 
-- 虚拟化（Hypervisor）技术，可以将物理资源，虚拟为多个逻辑资源。也就是说，可以将一个物理服务器，虚拟为多个逻辑服务器，
+- 虚拟化（Hypervisor）技术，可以将**物理资源**，虚拟为多个**逻辑资源**。也就是说，可以将一个**物理服务器**，虚拟为多个**逻辑服务器**，
 - 每个逻辑服务器，都有自己的操作系统，其中有 CPU，内存，硬盘、网络接口...，它们之间是完全隔离的，可以独立运行。
 
 虚拟机一定程度上实现了资源的整合，但缺点也很明显：
@@ -71,9 +71,9 @@ Docker 使用 Client-Server 架构模式。
 
 ## 四、Docker 下载安装
 
-在[官网](https://www.docker.com/)下载安装包安装。再启动 Docker。
+在[官网](https://www.docker.com/)下载安装包安装 Docker Desktop。再启动 Docker。
 
-Windows 需要在”启用或关闭Windows功能”中，开启 Hyper-V 功能（现在多用 WSL 代替）。
+Windows 需要在”启用或关闭Windows功能”中，开启 Hyper-V 功能（现在无需开启，而是多用 WSL 代替）。
 
 ## 五、容器化（containerization）和 Dockerfile
 
