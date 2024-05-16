@@ -133,12 +133,12 @@ docker compose 相关的 docker 命令语法：`docker compose [OPTIONS] [COMMAN
 
 一条命令，构建镜像，并启动运行容器，
 
-- `-d` 选项，表示且在后台运行；
-- `--build` 选项，表示根据最新的镜像重建：
-
 ```shell
 docker compose up -d --build
 ```
+
+- `-d` 选项，表示在后台运行；
+- `--build` 选项，表示根据最新的镜像重建：
 
 清除容器，并清除对应的数据卷。
 

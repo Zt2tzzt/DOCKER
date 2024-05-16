@@ -89,6 +89,8 @@ docker build -t myImage:1.0 .
 
 创建 `.dockerignore` 文件，将不想复制到镜像中的文件，添加进去
 
+.dockerignore
+
 ```ignore
 node_modules
 Dockerfile
@@ -99,6 +101,8 @@ README.md
 ```
 
 编写 Dockerfile 文件
+
+Dockerfi
 
 ```dockerfile
 FROM node:18-alpine3.15
