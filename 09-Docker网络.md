@@ -78,3 +78,31 @@ docker run --network 网卡名 容器名
 ```shell
 ping mysql
 ```
+
+## 三、Docker 容器访问宿主机
+
+以 docker 容器中的 Nginx 为例
+
+Nginx 反向代理到宿主机端口上的应用程序，常见的做法是使用 Docker 提供的一些特殊网络配置。具体做法取决于你的 Docker 版本和配置。
+
+以下是几种常见的方法：
+
+### 3.1. host.docker.internal（推荐）
+
+在现代的 Docker 版本中，Docker 提供了一个特殊的 DNS 名称 `host.docker.internal`，它让容器能够访问宿主机上的服务。
+
+配置步骤
+
+1.**修改 Nginx 配置**： 假设宿主机的服务在 `8080` 端口运行，修改 `nginx.conf` 文件中的 `proxy_pass` 配置，使用 `host.docker.internal` 来指向宿主机。
+
+```nginx
+location /api/ {
+    proxy_pass http://host.docker.internal:8080/;
+}
+```
+
+2.**重启 Nginx 容器**： 修改完配置后，重启 Nginx 容器以应用配置：
+
+```bash
+docker exec -it my-nginx nginx -s reload
+```
